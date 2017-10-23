@@ -1,8 +1,11 @@
-package mergesort;
+/*
+package drafts;
 
+*/
 /**
  * Created by Vasiliy Kylik on 23.10.2017.
- */
+ *//*
+
 public class Comparator {
     public static void sort(Object[]a, Comparator comparator){
         int N = a.length;
@@ -18,3 +21,4 @@ public class Comparator {
         Object swap = a[i];a[i] = a[j];a[j] = swap;
     }
 }
+*/

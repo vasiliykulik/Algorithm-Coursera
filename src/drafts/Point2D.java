@@ -1,8 +1,14 @@
-package mergesort;
+/*
+package drafts;
 
+
+import java.util.Comparator;
+
+*/
 /**
  * Created by Vasiliy Kylik on 19.10.2017.
- */
+ *//*
+
 // key words sort, mergesort
 // Convex Hull, namely Graham Scan approach, thru matrix
 public class Point2D {
@@ -36,6 +42,7 @@ public class Point2D {
         }
     }
 
+*/
 /*    public static void main(String[] args) {
         Stack<Point2D> hull = new Stack<>();
 
@@ -51,5 +58,7 @@ public class Point2D {
             hull.push(top);
             hull.push(p[i]); // aa p[i] to putative hull
         }
-    }*/
+    }*//*
+
 }
+*/

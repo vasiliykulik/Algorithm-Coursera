@@ -1,8 +1,14 @@
-package mergesort;
+/*
+package drafts;
 
+
+import java.util.Comparator;
+
+*/
 /**
  * Created by Vasiliy Kylik on 23.10.2017.
- */
+ *//*
+
 public class Student {
     public static final Comparator<Student> BY_NAME = new ByName();
     public static final Comparator<Student> BY_Section = new BySection();
@@ -23,3 +29,4 @@ public class Student {
         }
     }
 }
+*/
