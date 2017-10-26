@@ -1,4 +1,6 @@
-package mergesort;
+package sort;
+
+import mergesort.Merge;
 
 /**
  * Created by Vasiliy Kylik on 24.10.2017.

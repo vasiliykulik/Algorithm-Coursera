@@ -1,4 +1,4 @@
-package mergesort;
+package sort;
 
 /**
  * Created by Vasiliy Kylik on 24.10.2017.
