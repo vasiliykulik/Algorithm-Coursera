@@ -8,7 +8,7 @@ import java.util.Arrays;
  * Knuth shuffle.
  * In iteration i, pick integer r between i and N-1 uniformly at random,
  * or between 0 to i uniformly at random
- * Swap фхшъ and a[r]
+ * Swap a[i] and a[r]
  * <p>
  * While travelling through the array, swap the current item with a random item after current.
  */
