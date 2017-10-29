@@ -2,75 +2,73 @@ import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.StdDraw;
 import edu.princeton.cs.algs4.StdOut;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+
 
 /**
  * Created by Vasiliy Kylik on 27.10.2017.
  */
 public class FastCollinearPoints {
-  private HashMap<Double, List<Point>> foundSegments = new HashMap<>();
-  private List<LineSegment> segments = new ArrayList<>();
+  private final LineSegment[] segments;
 
   public FastCollinearPoints(Point[] points) {
-    Point[] pointsCopy = Arrays.copyOf(points, points.length);
-    for (Point startPoint : points) {
-      Arrays.sort(pointsCopy, startPoint.slopeOrder());
-
-      List<Point> slopePoints = new ArrayList<>();
-      double slope = 0;
-      double previousSlope = Double.NEGATIVE_INFINITY;
-
-      for (int i = 1; i < pointsCopy.length; i++) {
-        slope = startPoint.slopeTo(pointsCopy[i]);
-        if (slope == previousSlope) {
-          slopePoints.add(pointsCopy[i]);
-        } else {
-          if (slopePoints.size() >= 3) {
-            slopePoints.add(startPoint);
-            addSegmentIfNew(slopePoints, previousSlope);
+    List<LineSegment> lines = new ArrayList<>();
+    Arrays.sort(points);
+    for (int i = 0; i < points.length - 1; i++) {
+      if (points[i].compareTo(points[i + 1]) == 0) {
+        throw new IllegalArgumentException();
+      }
+    }
+    for (int i = 0; i < points.length; i++) {
+      Point p = points[i];
+      Point[] others = new Point[points.length - 1];
+      System.arraycopy(points, 0, others, 0, i);
+      System.arraycopy(points, i + 1, others, i, others.length - i);
+      Arrays.sort(others, p.slopeOrder());
+      int start = 0, end = 1;
+      while (end < others.length) {
+        boolean equalSlope = p.slopeTo(others[end]) == p.slopeTo(others[end - 1]);
+        if (equalSlope) {
+          end++;
+        }
+        if (!equalSlope || end == others.length) {
+          if (end - start >= 3) {
+            Point[] segment = new Point[end - start + 1];
+            segment[segment.length - 1] = p;
+            for (int k = 0; k < segment.length - 1; k++) {
+              segment[k] = others[start + k];
+            }
+            Arrays.sort(segment);
+            LineSegment line = new LineSegment(segment[0], segment[segment.length - 1]);
+            boolean added = false;
+            for (LineSegment lineSegment : lines) {
+              if (lineSegment.toString().equals(line.toString())) {
+                added = true;
+                break;
+              }
+            }
+            if (!added) {
+              lines.add(line);
+            }
           }
-          slopePoints.clear();
-          slopePoints.add(pointsCopy[i]);
-        }
-        previousSlope = slope;
-      }
-      if (slopePoints.size() >= 3) {
-        slopePoints.add(startPoint);
-        addSegmentIfNew(slopePoints, slope);
-      }
-    }
-  }   // finds all line segments containing 4 or more points
-
-  private void addSegmentIfNew(List<Point> slopePoints, double slope) {
-    List<Point> endPoints = foundSegments.get(slope);
-    Collections.sort(slopePoints);
-
-    Point startPoint = slopePoints.get(0);
-    Point endPoint = slopePoints.get(slopePoints.size() - 1);
-
-    if (endPoints == null) {
-      endPoints = new ArrayList<>();
-      endPoints.add(endPoint);
-      foundSegments.put(slope, endPoints);
-      segments.add(new LineSegment(startPoint, endPoint));
-    } else {
-      for (Point currentEndPoint : endPoints) {
-        if (currentEndPoint.compareTo(endPoint) == 0) {
-          return;
+          start = end;
+          end = start + 1;
         }
       }
-      endPoints.add(endPoint);
-      segments.add(new LineSegment(startPoint, endPoint));
     }
+    segments = lines.toArray(new LineSegment[lines.size()]);
   }
 
   public int numberOfSegments() {
-    return segments.size();
-  }       // the number of line segments
+    return segments.length;
+  }
 
   public LineSegment[] segments() {
-    return segments.toArray(new LineSegment[segments.size()]);
-  }          // the line segments
+    return segments.clone();
+  }
 
   public static void main(String[] args) {
 

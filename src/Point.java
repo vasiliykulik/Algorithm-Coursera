@@ -64,14 +64,21 @@ public class Point implements Comparable<Point> {
    * @return the slope between this point and the specified point
    */
   public double slopeTo(Point that) {
-    if (this.compareTo(that) == 0) {
-      return Double.NEGATIVE_INFINITY;
-    } else if (this.y == that.y) {
-      return 0D;
-    } else if (this.x == that.x) {
-      return Double.POSITIVE_INFINITY;
+    if (that == null) {
+      throw new NullPointerException();
+    }
+    if (this.x == that.x) {
+      if (this.y == that.y) {
+        return Double.NEGATIVE_INFINITY;
+      } else {
+        return Double.POSITIVE_INFINITY;
+      }
     } else {
-      return (Double.valueOf(that.y - this.y)) / (Double.valueOf(that.x - this.x));
+      if (this.y == that.y) {
+        return 0.0;
+      } else {
+        return 1.0 * (that.y - this.y) / (that.x - this.x);
+      }
     }
   }
 
@@ -88,11 +95,18 @@ public class Point implements Comparable<Point> {
    * argument point
    */
   public int compareTo(Point that) {
-    if (this.y < that.y) {
+    int y = compareInt(this.y, that.y);
+    if (y == 0) {
+      return compareInt(this.x, that.x);
+    } else {
+      return y;
+    }
+  }
+
+  private static int compareInt(int n1, int n2) {
+    if (n1 < n2) {
       return -1;
-    } else if (this.y > that.y) {
-      return 1;
-    } else if (this.x > that.x) {
+    } else if (n1 > n2) {
       return 1;
     } else {
       return 0;
@@ -125,7 +139,5 @@ public class Point implements Comparable<Point> {
   /**
    * Unit tests the Point data type.
    */
-  public static void main(String[] args) {
-        /* YOUR CODE HERE */
-  }
+
 }
