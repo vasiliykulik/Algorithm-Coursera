@@ -1,5 +1,6 @@
 package quicksort;
 
+import edu.princeton.cs.algs4.Insertion;
 import edu.princeton.cs.algs4.StdRandom;
 
 import java.util.Comparator;
@@ -8,6 +9,8 @@ import java.util.Comparator;
  * Created by Vasiliy Kylik on 29.10.2017.
  */
 public class QuickSort {
+  private static final int CUTOFF = 10;
+
   private static int partition(Comparable[] a, int lo, int hi) {
     int i = lo, j = hi + 1;
     while (true) {
@@ -39,7 +42,13 @@ public class QuickSort {
   }
 
   private static void sort(Comparable[] a, int lo, int hi) {
-    if (hi <= lo) return;
+    //  if (hi <= lo) return;
+    if (hi <= lo + CUTOFF - 1) {
+      Insertion.sort(a, lo, hi);  // InsertionSort for tiny subArrays (First Improvement)
+      return;
+    }
+/*    int m = medianOf3(a, lo, lo + (hi - lo)/2, hi); // ~ 12/7 N ln N compares (slightly fewer) ~ 12/35 N ln N exchanges (slightly more)
+    swap(a, lo, m);*/
     int j = partition(a, lo, hi);
     sort(a, lo, j - 1);
     sort(a, j + 1, hi);
