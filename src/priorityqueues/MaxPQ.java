@@ -2,8 +2,9 @@ package priorityqueues;
 
 /**
  * Created by Vasiliy Kylik on 07.11.2017.
+ *
  */
-public class MaxPQ<Key extends Comparable<Key>> {
+public class MaxPQ<Key extends Comparable<Key>> { // differs from algs4\MaxPQ
     private Key[] pq;
     private int N;
 
