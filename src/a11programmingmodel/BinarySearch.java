@@ -31,7 +31,7 @@ public class BinarySearch {
     }
 
     public static void main(String[] args) {
-        In in = new In("a11programmingmodel/largeW.txt");
+        In in = new In("a11programmingmodel/largeT.txt");
         int[] whitelist = in.readAllInts();
         Arrays.sort(whitelist);
         while (!StdIn.isEmpty()) {
