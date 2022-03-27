@@ -7,6 +7,7 @@ public class KopilkaGauss {
         for (int i=0;i<=end;i++){
             copilka+=i;
         }
+
         System.out.println("copilka = " + copilka);
     }
 }
